@@ -17,6 +17,15 @@ You can follow all your favorite keyword with ease.
 I really like cat and like to see photos of cat.
 But twitter does not provide easy way to follow multiple image timeline, so I create it.
 
+## Libraries in this app
+
+- Android Design Support Library
+- Retrofit
+- Dagger2
+- RxAndroid
+
+you can see full list [here](https://github.com/yshrsmz/photosearcher/blob/master/app/build.gradle).
+
 ## setting up
 - Java 8 is required.
 - register to fabric using android fabric plugin(this should create `app/fabric.properties`).
