@@ -1,6 +1,8 @@
 Photo Searcher
 ==============
 
+![demo](./assets/photosearcher_demo.gif)
+
 Search Images from Twitter, and do favorite.
 That's All.
 
