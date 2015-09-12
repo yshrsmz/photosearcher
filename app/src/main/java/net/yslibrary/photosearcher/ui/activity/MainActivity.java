@@ -47,7 +47,8 @@ import butterknife.OnClick;
 /**
  * Created by yshrsmz on 15/08/25.
  */
-public class MainActivity extends AppCompatActivity implements OnStartViewHolderDragListener {
+public class MainActivity extends AppCompatActivity
+        implements OnStartViewHolderDragListener, TabLayout.OnTabSelectedListener {
 
     @Bind(R.id.itemTab)
     TabLayout mTabLayout;
@@ -140,31 +141,28 @@ public class MainActivity extends AppCompatActivity implements OnStartViewHolder
             }
         });
 
-        refreshTabLayout();
+        refreshTabLayout(true);
     }
 
     private void refreshTabLayout() {
-        mTabLayout.setupWithViewPager(mViewPager);
+        refreshTabLayout(false);
+    }
+
+    private void refreshTabLayout(boolean setViewPagerListener) {
+        mTabLayout.setTabsFromPagerAdapter(mPagerAdapter);
+        if (setViewPagerListener) {
+            mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        }
+        if (mPagerAdapter.getCount() > 0) {
+            int curItem = mViewPager.getCurrentItem();
+            if (mTabLayout.getSelectedTabPosition() != curItem) {
+                mTabLayout.getTabAt(curItem).select();
+            }
+        }
+
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                String query = mTimelineManager.getItem(position);
-                mBus.post(new SearchTimelineScrollEvent(query, 0));
-            }
-        });
+        mTabLayout.setOnTabSelectedListener(this);
     }
 
     private void setupRightDrawer() {
@@ -253,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements OnStartViewHolder
             mTabListAdapter.notifyDataSetChanged();
             mPagerAdapter.notifyDataSetChanged();
             refreshTabLayout();
-
+            updateEmptyState();
             mNewQueryField.getText().clear();
         }
     }
@@ -276,6 +274,7 @@ public class MainActivity extends AppCompatActivity implements OnStartViewHolder
         mTabListAdapter.notifyDataSetChanged();
         mPagerAdapter.notifyDataSetChanged();
         refreshTabLayout();
+        updateEmptyState();
     }
 
     private void onMoveTab(Integer from, Integer to) {
@@ -303,5 +302,26 @@ public class MainActivity extends AppCompatActivity implements OnStartViewHolder
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        // workaround for `onTabSelected` and `onTabReselected` will trigger at the same time
+        // https://code.google.com/p/android/issues/detail?id=177189
+        mTabLayout.setOnTabSelectedListener(null);
+        mViewPager.setCurrentItem(tab.getPosition());
+        mTabLayout.setOnTabSelectedListener(this);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+        int position = tab.getPosition();
+        String query = mTimelineManager.getItem(position);
+        mBus.post(new SearchTimelineScrollEvent(query, 0));
     }
 }

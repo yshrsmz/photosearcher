@@ -35,10 +35,12 @@ public class TimelineObservable implements IDataSetManager<Tweet> {
 
     private List<Tweet> mTweets = new ArrayList<>();
 
+    private boolean mRefreshing = false;
+
     private TimelineObservable(Timeline<Tweet> timeline) {
         mTimeline = timeline;
         mTimelineStateHolder = new TimelineStateHolder();
-        previous();
+        refresh();
     }
 
     public static TimelineObservable create(Timeline<Tweet> timeline) {
@@ -110,12 +112,16 @@ public class TimelineObservable implements IDataSetManager<Tweet> {
             @Override
             public void success(Result<TimelineResult<Tweet>> result) {
                 mTimelineStateHolder.setPreviousCursor(result.data.timelineCursor);
+                if (mRefreshing) {
+                    mTweets.clear();
+                }
                 int position = mTweets.size();
                 mTweets.addAll(result.data.items);
 
                 mPreviousSubject.onNext(new DataSetInsertResult(position, result.data.items.size()));
 
                 mTimelineStateHolder.finishTimelineRequest();
+                mRefreshing = false;
             }
 
             @Override
@@ -123,6 +129,7 @@ public class TimelineObservable implements IDataSetManager<Tweet> {
                 mPreviousSubject.onError(e);
 
                 mTimelineStateHolder.finishTimelineRequest();
+                mRefreshing = false;
             }
         });
     }

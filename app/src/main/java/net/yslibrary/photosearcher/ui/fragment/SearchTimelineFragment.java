@@ -171,18 +171,19 @@ public class SearchTimelineFragment extends Fragment
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataSetInsertResult -> {
                     if (mRefreshLayout.isRefreshing()) {
-                        mTimelineObservable.getItems().clear();
                         mAdapter.notifyDataSetChanged();
                         mRefreshLayout.setRefreshing(false);
+                    } else {
+                        if (dataSetInsertResult.getInsertedCount() > 0) {
+                            mAdapter.notifyItemRangeInserted(
+                                    dataSetInsertResult.getInsertedPosition(),
+                                    dataSetInsertResult.getInsertedCount());
+                        }
                     }
                     mRefreshLayout.setEnabled(true);
                     mLoadingSpinner.dismiss();
 
-                    if (dataSetInsertResult.getInsertedCount() > 0) {
-                        mAdapter.notifyItemRangeInserted(
-                                dataSetInsertResult.getInsertedPosition(),
-                                dataSetInsertResult.getInsertedCount());
-                    }
+
                 }, throwable -> Timber.e(throwable, throwable.getMessage()));
 
         mSubscriptions.add(mPreviousSubscription);
