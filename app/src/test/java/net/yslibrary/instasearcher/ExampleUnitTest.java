@@ -1,4 +1,4 @@
-package net.yslibrary.instasearcher;
+package net.yslibrary.photosearcher;
 
 import org.junit.Test;
 

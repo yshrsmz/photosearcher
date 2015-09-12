@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/itemWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cell_height_normal"
+        android:background="@color/dark_primary_color">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:src="@drawable/ic_close_white_24dp"
+            android:layout_marginRight="@dimen/cell_padding"/>
+
+
+    <LinearLayout
+            android:id="@+id/itemRoot"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cell_height_normal"
+            android:paddingLeft="@dimen/cell_padding"
+            android:paddingRight="@dimen/cell_padding"
+            android:background="@drawable/bg_selectable_white">
+
+        <ImageView
+                android:id="@+id/itemDragHandle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_top_bottom_24dp"
+                android:layout_gravity="center_vertical"/>
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/itemTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="32dp"
+                android:layout_weight="1"
+                android:text="aaaaaa"/>
+
+        <ImageButton
+                android:id="@+id/itemDeleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_close_black_24dp"
+                android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+</FrameLayout>

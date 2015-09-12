@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Photo Searcher</string>
+    <string name="app_name">画像検索してファボるやつ</string>
+
+    <string name="favorite_complete_label">ファボりました</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_manage_tabs_label">Manage Tabs</string>
+    <string name="new_search_word_hint">Enter new keyword</string>
+    <string name="add_keyword_button">ADD KEYWORD</string>
+    <string name="no_tabs_label">
+        保存されたキーワードがありません。\n
+        右上のボタンから追加してください。
+    </string>
 </resources>

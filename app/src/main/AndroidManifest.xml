@@ -1,25 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="net.yslibrary.instasearcher">
+          package="net.yslibrary.photosearcher">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+            android:name=".App"
             android:allowBackup="true"
-            android:label="@string/app_name"
             android:icon="@mipmap/ic_launcher"
-            android:theme="@style/AppTheme"
-            android:name=".App">
-
-        <activity
-                android:name=".ui.activity.LoginActivity">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.App">
+        <activity android:name=".ui.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.MainActivity"/>
+
         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="c25f26673c73825eda1cbcdb4c2a5185aa29b00f" />
+                android:name="io.fabric.ApiKey"
+                android:value="${fabricApiKey}"/>
+
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
