@@ -19,6 +19,7 @@ But twitter does not provide easy way to follow multiple image timeline, so I cr
 
 ## Libraries in this app
 
+- Fabric Twitter Kit
 - Android Design Support Library
 - Retrofit
 - Dagger2
