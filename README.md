@@ -19,7 +19,7 @@ But twitter does not provide easy way to follow multiple image timeline, so I cr
 
 ## Libraries in this app
 
-- Fabric Twitter Kit
+- Fabric Twitter Kit(you can see how Timeline Class can work with RxJava)
 - Android Design Support Library
 - Retrofit
 - Dagger2
