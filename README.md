@@ -29,7 +29,7 @@ you can see full list [here](https://github.com/yshrsmz/photosearcher/blob/maste
 
 ## setting up
 - Java 8 is required.
-- register to fabric using android fabric plugin(this should create `app/fabric.properties`).
+- register to Fabric using Android Studio Fabric plugin(this should create `app/fabric.properties`).
 - create `secret.properties` which looks like below code.
 
 ```
