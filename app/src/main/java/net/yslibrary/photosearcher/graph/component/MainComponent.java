@@ -16,7 +16,7 @@ import dagger.Component;
         dependencies = AppComponent.class,
         modules = ActivityModule.class
 )
-public interface MainComponent {
+public interface MainComponent extends AbstractActivityComponent {
     void inject(MainActivity mainActivity);
 
     void inject(SearchTimelineFragment fragment);

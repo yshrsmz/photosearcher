@@ -16,6 +16,6 @@ import dagger.Component;
         dependencies = AppComponent.class,
         modules = ActivityModule.class
 )
-public interface AbstractiActivityComponent {
+public interface AbstractActivityComponent {
     Activity activity();
 }
